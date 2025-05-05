@@ -25,3 +25,8 @@ export const productInsertSchema = z.object({
 	banner: z.string().nullable(),
 	price: currency,
 });
+// walidacja logowania
+export const signInSchema = z.object({
+	email: z.string().email("Podaj poprawny email"),
+	password: z.string().min(6, "Podaj hasło min. 6 znaków"),
+})

@@ -4,13 +4,11 @@ import { getLatestProducts } from "@/lib/actions/product.actions";
 const HomePage = async () => {
 	const latestProducts = await getLatestProducts();
 	return (
-		<div className=''>
-			<ProductList
-				data={latestProducts}
-				title='Nowości - usunac bg z obrazkow'
-				limit={4}
-			/>
-		</div>
+		<ProductList
+			data={latestProducts}
+			title='Nowości - usunac bg z obrazkow'
+			limit={4}
+		/>
 	);
 };
 
