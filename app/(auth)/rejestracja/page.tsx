@@ -9,23 +9,15 @@ import { APP_NAME } from "@/lib/constants";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import SignInForm from "./signin-form";
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
+import SignUpForm from "./signup-form";
+
+
 
 export const metadata: Metadata = {
-	title: "Zaloguj się",
+	title: "Zarejestruj się",
 };
-const SignInPage = async (props: {
-	searchParams: Promise<{
-		callbackUrl: string;
-	}>;
-}) => {
-	const { callbackUrl } = await props.searchParams;
-	const session = await auth();
-	if (session) {
-		return redirect(callbackUrl || "/");
-	}
+const SignUpPage = async () => {
+
 
 	return (
 		<div className='w-full max-w-md'>
@@ -41,12 +33,12 @@ const SignInPage = async (props: {
 							className='mb-5'
 						/>
 					</Link>
-					<CardTitle className='text-center h3-bold'>Logowanie</CardTitle>
+					<CardTitle className='text-center h3-bold'>Rejestracja</CardTitle>
 					<CardDescription className='text-center mb-5'>
-						Zaloguj się do swojego konta
+                        Zarejestruj się by złożyć zamówienie
 					</CardDescription>
 					<CardContent className='space-y-4'>
-						<SignInForm />
+					<SignUpForm />
 					</CardContent>
 				</CardHeader>
 			</Card>
@@ -54,4 +46,4 @@ const SignInPage = async (props: {
 	);
 };
 
-export default SignInPage;
+export default SignUpPage;

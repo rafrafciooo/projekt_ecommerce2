@@ -29,4 +29,14 @@ export const productInsertSchema = z.object({
 export const signInSchema = z.object({
 	email: z.string().email("Podaj poprawny email"),
 	password: z.string().min(6, "Podaj hasło min. 6 znaków"),
-})
+});
+export const signUpSchema = z
+	.object({
+		email: z.string().email("Nieprawidłowy adres email"),
+		password: z.string().min(6, "Hasło musi mieć co najmniej 6 znaków").max(50),
+		confirmPassword: z.string(),
+	})
+	.refine(data => data.password === data.confirmPassword, {
+		message: "Hasła muszą być takie same",
+		path: ["confirmPassword"],
+	});

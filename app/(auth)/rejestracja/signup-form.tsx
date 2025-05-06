@@ -3,21 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signInDefaultValues } from "@/lib/constants";
-import { SignInUser } from "@/lib/actions/user.actions";
-import { useActionState } from "react";
+
 import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
-import { useSearchParams } from "next/navigation";
 
-const SignInForm = () => {
-	const [data, action] = useActionState(SignInUser, {
-		success: false,
-		message: "",
-	});
+const SignUpForm = () => {
 
-	const searchParams = useSearchParams();
-	const callbackUrl = searchParams.get("callbackUrl") || "/";
-	const SignInButton = () => {
+
+	const SignUpButton = () => {
 		const { pending } = useFormStatus();
 		return (
 			<Button type='submit' className='w-full' disabled={pending}>
@@ -27,8 +20,7 @@ const SignInForm = () => {
 		);
 	};
 	return (
-		<form action={action}>
-			<input type='hidden' name='callbackUrl' value={callbackUrl} />
+		<form>
 			<div className='space-y-2'>
 				<Label htmlFor='email'>Email</Label>
 				<Input
@@ -51,21 +43,29 @@ const SignInForm = () => {
 					autoComplete='password'
 					defaultValue={signInDefaultValues.password}
 				/>
+				<Label htmlFor='password'>Powtórz hasło</Label>
+				<Input
+					id='password'
+					name='password'
+					type='password'
+					required
+					placeholder='powtórz hasło'
+					autoComplete='new-password'
+					defaultValue={signInDefaultValues.password}
+				/>
 
 				<div>
 					{" "}
-					<SignInButton />
+					<SignUpButton />
 				</div>
 
-				{data && !data.success && (
-					<p className='text-destructive text-center'>{data.message}</p>
-				)}
+				
 
 				<div className='text-sm text-center text-muted-foreground'>
 					<p>
-						Nie masz konta?{" "}
-						<a href='/rejestracja' target='_self' className='text-primary'>
-							Zarejestruj się
+						Masz konto?{" "}
+						<a href='/zaloguj' target='_self' className='text-primary'>
+							Zaloguj się
 						</a>
 					</p>
 				</div>
@@ -74,4 +74,4 @@ const SignInForm = () => {
 	);
 };
 
-export default SignInForm;
+export default SignUpForm;

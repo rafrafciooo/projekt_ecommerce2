@@ -22,7 +22,7 @@ export const config = {
 			},
 			async authorize(credentials) {
 				if (credentials == null) return null;
-				// znajdz uzytkownika
+				// znajdz uzytkownika w bazie danych
 				const user = await prisma.user.findFirst({
 					where: {
 						email: credentials.email as string,
@@ -50,13 +50,13 @@ export const config = {
 		}),
 	],
 	callbacks: {
+		// eslint-disable-next-line
 		async session({ session, user, trigger, token }: any) {
 			//userID token
-
 			session.user.id = token.sub;
 
 			// aktualizacja user name
-			if (trigger == "update") {
+			if (trigger === "update") {
 				session.user.name = user.name;
 			}
 
