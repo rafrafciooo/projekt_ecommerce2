@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { nullable, z } from "zod";
 import { formatPrice } from "./utils";
 
 const currency = z.string().refine(
@@ -40,3 +40,22 @@ export const signUpSchema = z
 		message: "Hasła muszą być takie same",
 		path: ["confirmPassword"],
 	});
+// karta produktu
+export const cardItemSchema = z.object({
+	productId: z.string().min(1, "produkt wymagany"),
+	name: z.string().min(1, "nazwa wymagane"),
+	slug: z.string().min(1, "slug wymagany"),
+	quantity: z.number().int().nonnegative("ilość dodatnia wymagana"),
+	image: z.string().min(1, "zdjęcie wymagane"),
+	price: currency,
+});
+
+export const insertCartSchema = z.object({
+	items: z.array(cardItemSchema),
+	itemsPrice: currency,
+	totalPrice: currency,
+	shippingPrice: currency,
+	taxPrice: currency,
+	sessionCartId: z.string().min(1, "id wymagane"),
+	userId: z.string().optional().nullable(),
+});
