@@ -1,4 +1,4 @@
-import { nullable, z } from "zod";
+import { z } from "zod";
 import { formatPrice } from "./utils";
 
 const currency = z.string().refine(
@@ -30,6 +30,7 @@ export const signInSchema = z.object({
 	email: z.string().email("Podaj poprawny email"),
 	password: z.string().min(6, "Podaj hasło min. 6 znaków"),
 });
+// rejestracja
 export const signUpSchema = z
 	.object({
 		email: z.string().email("Nieprawidłowy adres email"),

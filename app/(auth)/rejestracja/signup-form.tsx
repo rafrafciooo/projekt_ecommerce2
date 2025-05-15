@@ -2,25 +2,31 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signInDefaultValues } from "@/lib/constants";
+import { signUpDefaultValues } from "@/lib/constants";
 
 import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
+import { SignUpUser } from "@/lib/actions/user.actions";
+
+import { useActionState } from "react";
 
 const SignUpForm = () => {
-
+	const [data, action] = useActionState(SignUpUser, {
+		success: false,
+		message: "",
+	});
 
 	const SignUpButton = () => {
 		const { pending } = useFormStatus();
 		return (
 			<Button type='submit' className='w-full' disabled={pending}>
-				{pending ? "Ładowanie..." : "Zaloguj"}
+				{pending ? "Ładowanie..." : "Zarejestruj sie"}
 				{pending && <Loader2 className='animate-spin' />}
 			</Button>
 		);
 	};
 	return (
-		<form>
+		<form action={action}>
 			<div className='space-y-2'>
 				<Label htmlFor='email'>Email</Label>
 				<Input
@@ -30,7 +36,7 @@ const SignUpForm = () => {
 					required
 					placeholder='Wprowadź swój email'
 					autoComplete='email'
-					defaultValue={signInDefaultValues.email}
+					defaultValue={signUpDefaultValues.email}
 				/>
 
 				<Label htmlFor='password'>Hasło</Label>
@@ -41,17 +47,17 @@ const SignUpForm = () => {
 					required
 					placeholder='Wprowadź swoje hasło'
 					autoComplete='password'
-					defaultValue={signInDefaultValues.password}
+					defaultValue={signUpDefaultValues.password}
 				/>
-				<Label htmlFor='password'>Powtórz hasło</Label>
+				<Label htmlFor='confirmPassword'>Powtórz hasło</Label>
 				<Input
-					id='password'
-					name='password'
+					id='confirmPassword'
+					name='confirmPassword'
 					type='password'
 					required
 					placeholder='powtórz hasło'
-					autoComplete='new-password'
-					defaultValue={signInDefaultValues.password}
+					autoComplete='confirmPassword'
+					defaultValue={signUpDefaultValues.password}
 				/>
 
 				<div>
@@ -59,7 +65,9 @@ const SignUpForm = () => {
 					<SignUpButton />
 				</div>
 
-				
+				{data && !data.success && (
+					<p className='text-destructive text-center'>{data.message}</p>
+				)}
 
 				<div className='text-sm text-center text-muted-foreground'>
 					<p>

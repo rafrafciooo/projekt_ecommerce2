@@ -10,15 +10,21 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import SignUpForm from "./signup-form";
-
-
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
 	title: "Zarejestruj się",
 };
-const SignUpPage = async () => {
+const SignUpPage = async (props: {
+	searchParams: Promise<{ callbackUrl: string }>;
+}) => {
+	const callbackUrl = await props.searchParams;
+	const session = await auth();
 
-
+	if (session) {
+		return redirect(callbackUrl.callbackUrl || "/");
+	}
 	return (
 		<div className='w-full max-w-md'>
 			<Card>
@@ -35,10 +41,10 @@ const SignUpPage = async () => {
 					</Link>
 					<CardTitle className='text-center h3-bold'>Rejestracja</CardTitle>
 					<CardDescription className='text-center mb-5'>
-                        Zarejestruj się by złożyć zamówienie
+						Zarejestruj się by złożyć zamówienie
 					</CardDescription>
 					<CardContent className='space-y-4'>
-					<SignUpForm />
+						<SignUpForm />
 					</CardContent>
 				</CardHeader>
 			</Card>

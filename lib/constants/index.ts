@@ -9,3 +9,8 @@ export const signInDefaultValues = {
 	email: "admin@admin.pl",
 	password: "123456",
 };
+export const signUpDefaultValues = {
+	email: "test@test.pl",
+	password: "123456",
+	confirmPassword: "123456",
+};

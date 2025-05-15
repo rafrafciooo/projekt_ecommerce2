@@ -17,7 +17,7 @@ const AddToCart = ({ item }: { item: CartItem }) => {
 			return;
 		}
 		//toast sukces dodania do koszuka
-		toast("Przedmiot został dodany do koszyka", {
+		toast(`${item.name} dodany do koszyka`, {
 			action: {
 				label: "Zobacz koszyk",
 				onClick: () => router.push("/koszyk"),

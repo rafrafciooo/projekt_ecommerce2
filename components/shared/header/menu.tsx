@@ -2,7 +2,7 @@ import React from "react";
 import { ModeToggle } from "./modeToggle";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Grip, ShoppingCart, UserIcon } from "lucide-react";
+import { Grip, ShoppingCart} from "lucide-react";
 import {
 	Sheet,
 	SheetContent,
@@ -10,6 +10,7 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet";
+import UserButton from "./user-button";
 
 const Menu = () => {
 	return (
@@ -22,9 +23,7 @@ const Menu = () => {
 					</Link>
 				</Button>
 				<Button asChild variant={"outline"}>
-					<Link href='/zaloguj'>
-						<UserIcon /> Zaloguj
-					</Link>
+					<UserButton />
 				</Button>
 			</nav>
 			<nav className='md:hidden '>
@@ -40,11 +39,7 @@ const Menu = () => {
 								<ShoppingCart /> Koszyk
 							</Link>
 						</Button>
-						<Button asChild variant={"outline"}>
-							<Link href='/zaloguj'>
-								<UserIcon /> Zaloguj
-							</Link>
-						</Button>
+						<UserButton />
 						<SheetDescription></SheetDescription>
 					</SheetContent>
 				</Sheet>
